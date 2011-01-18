@@ -55,10 +55,10 @@
 		var returnElem = $('<nav></nav>'),
 		    list = $('<ul></ul>');
 		
-		var tabs = $(this);
-		if(settings['before']) settings['before'](tabs);
-		for(var i = 0; i < tabs.length; i++){
-			var $tab = $(tabs[i]),
+		var $tabs = $(this);
+		if(settings['before']) settings['before']($tabs);
+		for(var i = 0; i < $tabs.length; i++){
+			var $tab = $tabs.eq(i),
 			    listItem = $('<li></li>', {
 					'class': $tab.attr('class')
 				});
@@ -66,16 +66,16 @@
 				'html': $tab.find(title).html(),
 				'href': !!settings['tabHref'] ? $tab.find(settings['tabHref']).attr('href') : '#',
 				'click': function(evt){
-					var thisTab = $(this).data('tab');
-					settings['click'](evt, $(this), thisTab, tabs.not(thisTab));
+					var $thisTab = $(this).data('tab');
+					settings['click'](evt, $(this), $thisTab, $tabs.not($thisTab));
 				},
 				'mouseenter': function(evt){
-					var thisTab = $(this).data('tab');
-					settings['mouseenter'](evt, $(this), thisTab, tabs.not(thisTab));
+					var $thisTab = $(this).data('tab');
+					settings['mouseenter'](evt, $(this), $thisTab, $tabs.not($thisTab));
 				},
 				'mouseleave': function(evt){
-					var thisTab = $(this).data('tab');
-					settings['mouseleave'](evt, $(this), thisTab, tabs.not(thisTab));
+					var $thisTab = $(this).data('tab');
+					settings['mouseleave'](evt, $(this), $thisTab, $tabs.not($thisTab));
 				}
 			}).data('tab', $tab).appendTo(listItem);
 			if(settings['beforeAppend']) settings['beforeAppend'](listItem.children('a'), $tab);
